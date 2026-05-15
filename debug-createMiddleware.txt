@@ -1,0 +1,343 @@
+﻿
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:2:impor
+t { AnyServerFn, ConstrainValidator, CustomFetch, Method } from 
+'./createServerFn.js';
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:4:impor
+t { AnyContext, Assign, Constrain, Expand, IntersectAssign, Register, 
+ResolveValidatorInput, ResolveValidatorOutput, ValidateSerializableInput } 
+from '@tanstack/router-core';
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:9:expor
+t type MiddlewareType = 'request' | 'function';
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:10:expo
+rt type CreateMiddlewareResult<TRegister, TType extends MiddlewareType> = 
+'request' extends TType ? RequestMiddleware<TRegister> : 
+FunctionMiddleware<TRegister>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:12:    
+middleware: <const TNewMiddlewares = undefined>(middlewares: 
+Constrain<TNewMiddlewares, ReadonlyArray<AnyRequestMiddleware | 
+AnyFunctionMiddleware>>) => FunctionMiddlewareAfterMiddleware<TRegister, 
+TNewMiddlewares>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:16:expo
+rt interface FunctionMiddlewareWithTypes<TRegister, TMiddlewares, 
+TInputValidator, TServerContext, TServerSendContext, TClientContext, 
+TClientSendContext> {
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:17:    
+'~types': FunctionMiddlewareTypes<TRegister, TMiddlewares, TInputValidator, 
+TServerContext, TServerSendContext, TClientContext, TClientSendContext>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:18:    
+options: FunctionMiddlewareOptions<TRegister, TMiddlewares, TInputValidator, 
+TServerContext, TClientContext>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:20:expo
+rt interface FunctionMiddlewareTypes<in out TRegister, in out TMiddlewares, in 
+out TInputValidator, in out TServerContext, in out TServerSendContext, in out 
+TClientContext, in out TClientSendContext> {
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:27:    
+clientContext: TClientContext;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:28:    
+allClientContextBeforeNext: AssignAllClientContextBeforeNext<TMiddlewares, 
+TClientContext>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:29:    
+allClientContextAfterNext: AssignAllClientContextAfterNext<TMiddlewares, 
+TClientContext, TClientSendContext>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:30:    
+serverContext: TServerContext;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:31:    
+serverSendContext: TServerSendContext;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:32:    
+allServerSendContext: AssignAllServerSendContext<TMiddlewares, 
+TServerSendContext>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:33:    
+allServerContext: AssignAllServerFnContext<TRegister, TMiddlewares, 
+TServerSendContext, TServerContext>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:34:    
+clientSendContext: TClientSendContext;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:35:    
+allClientSendContext: AssignAllClientSendContext<TMiddlewares, 
+TClientSendContext>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:42:expo
+rt type IntersectAllMiddleware<TMiddlewares, TType extends keyof 
+AnyFunctionMiddleware['~types'] | keyof AnyRequestMiddleware['~types'] | keyof 
+AnyServerFn['~types'], TAcc = undefined> = TMiddlewares extends readonly 
+[infer TMiddleware, ...infer TRest] ? TMiddleware extends 
+AnyFunctionMiddleware | AnyRequestMiddleware | AnyServerFn ? 
+IntersectAllMiddleware<TRest, TType, IntersectAssign<TAcc, 
+TMiddleware['~types'][TType & keyof TMiddleware['~types']]>> : TAcc : TAcc;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:49: * 
+Recursively resolve the client context type produced by a sequence of 
+middleware
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:51:expo
+rt type AssignAllClientContextBeforeNext<TMiddlewares, TClientContext = 
+undefined> = unknown extends TClientContext ? TClientContext : 
+Assign<AssignAllMiddleware<TMiddlewares, 'allClientContextBeforeNext'>, 
+TClientContext>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:52:expo
+rt type AssignAllMiddleware<TMiddlewares, TType extends keyof 
+AnyFunctionMiddleware['~types'] | keyof AnyRequestMiddleware['~types'] | keyof 
+AnyServerFn['~types'], TAcc = undefined> = TMiddlewares extends readonly 
+[infer TMiddleware, ...infer TRest] ? TMiddleware extends 
+AnyFunctionMiddleware | AnyRequestMiddleware | AnyServerFn ? 
+AssignAllMiddleware<TRest, TType, Assign<TAcc, TMiddleware['~types'][TType & 
+keyof TMiddleware['~types']]>> : TAcc : TAcc;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:53:expo
+rt type AssignAllClientContextAfterNext<TMiddlewares, TClientContext = 
+undefined, TSendContext = undefined> = unknown extends TClientContext ? 
+Assign<TClientContext, TSendContext> : 
+Assign<AssignAllMiddleware<TMiddlewares, 'allClientContextAfterNext'>, 
+Assign<TClientContext, TSendContext>>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:54:expo
+rt type AssignAllServerSendContext<TMiddlewares, TSendContext = undefined> = 
+unknown extends TSendContext ? TSendContext : 
+Assign<AssignAllMiddleware<TMiddlewares, 'allServerSendContext'>, 
+TSendContext>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:55:expo
+rt type AssignAllServerRequestContext<TRegister, TMiddlewares, TSendContext = 
+undefined, TServerContext = undefined> = Assign<GlobalFetchRequestContext, 
+Assign<GlobalServerRequestContext<TRegister>, 
+__AssignAllServerRequestContext<TMiddlewares, TSendContext, TServerContext>>>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:56:expo
+rt type GlobalFetchRequestContext = Register extends {
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:58:    
+    requestContext: infer TRequestContext;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:60:} ? 
+TRequestContext : AnyContext;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:61:expo
+rt type GlobalServerRequestContext<TRegister> = TRegister extends {
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:62:    
+config: StartInstanceOptions<any, any, infer TRequestMiddlewares, any>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:63:} ? 
+AssignAllMiddleware<TRequestMiddlewares, 'allServerContext'> : AnyContext;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:64:type
+ __AssignAllServerRequestContext<TMiddlewares, TSendContext = undefined, 
+TServerContext = undefined> = unknown extends TSendContext ? 
+Assign<TSendContext, TServerContext> : 
+Assign<AssignAllMiddleware<TMiddlewares, 'allServerContext'>, 
+Assign<TSendContext, TServerContext>>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:65:expo
+rt type AssignAllServerFnContext<TRegister, TMiddlewares, TSendContext = 
+undefined, TServerContext = undefined> = Assign<GlobalFetchRequestContext, 
+Assign<GlobalServerRequestContext<TRegister>, // TODO: This enabled global 
+middleware
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:66:Assi
+gn<GlobalServerFnContext<TRegister>, // TODO: This enabled global middleware
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:67:__As
+signAllServerFnContext<TMiddlewares, TSendContext, TServerContext>>>>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:68:type
+ GlobalServerFnContext<TRegister> = TRegister extends {
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:70:} ? 
+AssignAllMiddleware<TFunctionMiddlewares, 'allServerContext'> : AnyContext;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:71:type
+ __AssignAllServerFnContext<TMiddlewares, TSendContext = undefined, 
+TServerContext = undefined> = unknown extends TSendContext ? 
+Assign<TSendContext, TServerContext> : 
+Assign<AssignAllMiddleware<TMiddlewares, 'allServerContext'>, 
+Assign<TSendContext, TServerContext>>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:72:expo
+rt type AssignAllClientSendContext<TMiddlewares, TSendContext = undefined> = 
+unknown extends TSendContext ? TSendContext : 
+Assign<AssignAllMiddleware<TMiddlewares, 'allClientSendContext'>, 
+TSendContext>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:73:expo
+rt interface FunctionMiddlewareOptions<in out TRegister, in out TMiddlewares, 
+in out TInputValidator, in out TServerContext, in out TClientContext> {
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:76:    
+client?: FunctionMiddlewareClientFn<TRegister, TMiddlewares, TInputValidator, 
+TServerContext, TClientContext>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:77:    
+server?: FunctionMiddlewareServerFn<TRegister, TMiddlewares, TInputValidator, 
+TServerContext, unknown, unknown>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:79:expo
+rt type FunctionMiddlewareClientNextFn<TRegister, TMiddlewares> = 
+<TSendContext = undefined, TNewClientContext = undefined>(ctx?: {
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:80:    
+context?: TNewClientContext;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:81:    
+sendContext?: ValidateSerializableInput<TRegister, TSendContext>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:82:    
+headers?: HeadersInit;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:84:}) 
+=> Promise<FunctionClientResultWithContext<TMiddlewares, TSendContext, 
+TNewClientContext>>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:85:expo
+rt interface FunctionMiddlewareServer<TRegister, TMiddlewares, 
+TInputValidator, TServerSendContext, TClientContext> {
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:86:    
+server: <TNewServerContext = undefined, TSendContext = undefined>(server: 
+FunctionMiddlewareServerFn<TRegister, TMiddlewares, TInputValidator, 
+TServerSendContext, TNewServerContext, TSendContext>) => 
+FunctionMiddlewareAfterServer<TRegister, TMiddlewares, TInputValidator, 
+TNewServerContext, TServerSendContext, TClientContext, TSendContext>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:88:expo
+rt type FunctionMiddlewareServerFn<TRegister, TMiddlewares, TInputValidator, 
+TServerSendContext, TNewServerContext, TSendContext> = (options: 
+FunctionMiddlewareServerFnOptions<TRegister, TMiddlewares, TInputValidator, 
+TServerSendContext>) => FunctionMiddlewareServerFnResult<TRegister, 
+TMiddlewares, TServerSendContext, TNewServerContext, TSendContext>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:89:expo
+rt type FunctionMiddlewareServerNextFn<TRegister, TMiddlewares, 
+TServerSendContext> = <TNewServerContext = undefined, TSendContext = 
+undefined>(ctx?: {
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:90:    
+context?: TNewServerContext;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:91:    
+sendContext?: ValidateSerializableInput<TRegister, TSendContext>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:92:}) 
+=> Promise<FunctionServerResultWithContext<TRegister, TMiddlewares, 
+TServerSendContext, TNewServerContext, TSendContext>>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:93:expo
+rt type FunctionServerResultWithContext<in out TRegister, in out TMiddlewares, 
+in out TServerSendContext, in out TServerContext, in out TSendContext> = {
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:96:    
+    context: TServerContext;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:97:    
+    sendContext: TSendContext;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:99:    
+context: Expand<AssignAllServerFnContext<TRegister, TMiddlewares, 
+TServerSendContext, TServerContext>>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:100:   
+ sendContext: Expand<AssignAllClientSendContext<TMiddlewares, TSendContext>>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:102:exp
+ort interface FunctionMiddlewareServerFnOptions<in out TRegister, in out 
+TMiddlewares, in out TInputValidator, in out TServerSendContext> {
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:104:   
+ context: Expand<AssignAllServerFnContext<TRegister, TMiddlewares, 
+TServerSendContext>>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:105:   
+ next: FunctionMiddlewareServerNextFn<TRegister, TMiddlewares, 
+TServerSendContext>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:110:exp
+ort type FunctionMiddlewareServerFnResult<TRegister, TMiddlewares, 
+TServerSendContext, TServerContext, TSendContext> = 
+Promise<FunctionServerResultWithContext<TRegister, TMiddlewares, 
+TServerSendContext, TServerContext, TSendContext>> | 
+FunctionServerResultWithContext<TRegister, TMiddlewares, TServerSendContext, 
+TServerContext, TSendContext>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:111:exp
+ort interface FunctionMiddlewareAfterServer<TRegister, TMiddlewares, 
+TInputValidator, TServerContext, TServerSendContext, TClientContext, 
+TClientSendContext> extends FunctionMiddlewareWithTypes<TRegister, 
+TMiddlewares, TInputValidator, TServerContext, TServerSendContext, 
+TClientContext, TClientSendContext> {
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:114:   
+ client: <TSendServerContext = undefined, TNewClientContext = 
+undefined>(client: FunctionMiddlewareClientFn<TRegister, TMiddlewares, 
+TInputValidator, TSendServerContext, TNewClientContext>) => 
+FunctionMiddlewareAfterClient<TRegister, TMiddlewares, TInputValidator, 
+TSendServerContext, TNewClientContext>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:116:exp
+ort type FunctionMiddlewareClientFn<TRegister, TMiddlewares, TInputValidator, 
+TSendContext, TClientContext> = (options: 
+FunctionMiddlewareClientFnOptions<TRegister, TMiddlewares, TInputValidator>) 
+=> FunctionMiddlewareClientFnResult<TMiddlewares, TSendContext, 
+TClientContext>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:119:   
+ context: Expand<AssignAllClientContextBeforeNext<TMiddlewares>>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:120:   
+ sendContext: Expand<AssignAllServerSendContext<TMiddlewares>>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:128:exp
+ort type FunctionMiddlewareClientFnResult<TMiddlewares, TSendContext, 
+TClientContext> = Promise<FunctionClientResultWithContext<TMiddlewares, 
+TSendContext, TClientContext>> | FunctionClientResultWithContext<TMiddlewares, 
+TSendContext, TClientContext>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:129:exp
+ort type FunctionClientResultWithContext<in out TMiddlewares, in out 
+TSendContext, in out TClientContext> = {
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:131:   
+ context: Expand<AssignAllClientContextAfterNext<TMiddlewares, 
+TClientContext>>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:132:   
+ sendContext: Expand<AssignAllServerSendContext<TMiddlewares, TSendContext>>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:133:   
+ headers: HeadersInit;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:136:exp
+ort interface FunctionMiddlewareAfterClient<TRegister, TMiddlewares, 
+TInputValidator, TServerSendContext, TClientContext> extends 
+FunctionMiddlewareWithTypes<TRegister, TMiddlewares, TInputValidator, 
+undefined, TServerSendContext, TClientContext, undefined>, 
+FunctionMiddlewareServer<TRegister, TMiddlewares, TInputValidator, 
+TServerSendContext, TClientContext> {
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:143:exp
+ort interface RequestMiddleware<TRegister> extends 
+RequestMiddlewareAfterMiddleware<TRegister, undefined> {
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:144:   
+ middleware: <const TMiddlewares = undefined>(middlewares: 
+Constrain<TMiddlewares, ReadonlyArray<AnyRequestMiddleware>>) => 
+RequestMiddlewareAfterMiddleware<TRegister, TMiddlewares>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:146:exp
+ort type AnyRequestMiddleware = RequestMiddlewareWithTypes<any, any, any>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:147:exp
+ort interface RequestMiddlewareWithTypes<TRegister, TMiddlewares, 
+TServerContext> {
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:148:   
+ '~types': RequestMiddlewareTypes<TRegister, TMiddlewares, TServerContext>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:149:   
+ options: RequestMiddlewareOptions<TRegister, TMiddlewares, TServerContext>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:151:exp
+ort interface RequestMiddlewareOptions<in out TRegister, in out TMiddlewares, 
+in out TServerContext> {
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:153:   
+ server?: RequestServerFn<TRegister, TMiddlewares, TServerContext>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:155:exp
+ort interface RequestMiddlewareTypes<TRegister, TMiddlewares, TServerContext> {
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:156:   
+ type: 'request';
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:160:   
+ serverContext: TServerContext;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:161:   
+ allServerContext: AssignAllServerRequestContext<TRegister, TMiddlewares, 
+undefined, TServerContext>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:163:exp
+ort interface RequestMiddlewareAfterMiddleware<TRegister, TMiddlewares> 
+extends RequestMiddlewareWithTypes<TRegister, TMiddlewares, undefined>, 
+RequestMiddlewareServer<TRegister, TMiddlewares> {
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:165:exp
+ort interface RequestMiddlewareServer<TRegister, TMiddlewares> {
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:166:   
+ server: <TServerContext = undefined>(fn: RequestServerFn<TRegister, 
+TMiddlewares, TServerContext>) => RequestMiddlewareAfterServer<TRegister, 
+TMiddlewares, TServerContext>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:168:exp
+ort type RequestServerFn<TRegister, TMiddlewares, TServerContext> = (options: 
+RequestServerOptions<TRegister, TMiddlewares>) => 
+RequestMiddlewareServerFnResult<TRegister, TMiddlewares, TServerContext>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:169:exp
+ort interface RequestServerOptions<TRegister, TMiddlewares> {
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:170:   
+ request: Request;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:172:   
+ context: Expand<AssignAllServerRequestContext<TRegister, TMiddlewares>>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:173:   
+ next: RequestServerNextFn<TRegister, TMiddlewares>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:176:   
+  * This is only present when the request is handling a server function call.
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:177:   
+  * For regular page requests, this will be undefined.
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:181:exp
+ort type RequestServerNextFn<TRegister, TMiddlewares> = <TServerContext = 
+undefined>(options?: RequestServerNextFnOptions<TServerContext>) => 
+RequestServerNextFnResult<TRegister, TMiddlewares, TServerContext>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:182:exp
+ort interface RequestServerNextFnOptions<TServerContext> {
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:183:   
+ context?: TServerContext;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:185:exp
+ort type RequestServerNextFnResult<TRegister, TMiddlewares, TServerContext> = 
+Promise<RequestServerResult<TRegister, TMiddlewares, TServerContext>> | 
+RequestServerResult<TRegister, TMiddlewares, TServerContext>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:186:exp
+ort type RequestMiddlewareServerFnResult<TRegister, TMiddlewares, 
+TServerContext> = Promise<RequestServerResult<TRegister, TMiddlewares, 
+TServerContext> | Response> | RequestServerResult<TRegister, TMiddlewares, 
+TServerContext> | Response;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:187:exp
+ort interface RequestServerResult<TRegister, TMiddlewares, TServerContext> {
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:188:   
+ request: Request;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:190:   
+ context: Expand<AssignAllServerRequestContext<TRegister, TMiddlewares, 
+undefined, TServerContext>>;
+node_modules\@tanstack\start-client-core\dist\esm\createMiddleware.d.ts:193:exp
+ort interface RequestMiddlewareAfterServer<TRegister, TMiddlewares, 
+TServerContext> extends RequestMiddlewareWithTypes<TRegister, TMiddlewares, 
+TServerContext> {
+
+
